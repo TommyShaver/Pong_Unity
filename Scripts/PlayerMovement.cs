@@ -15,35 +15,19 @@ public class PlayerMovement : MonoBehaviour
     public bool _hardAI;
 
     private BallMovement _ball;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         _ball = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallMovement>();
-        if(_easyAI == true)
-        {
-            _aiSpeed = 5;
-            _forwardDirection = Vector2.left;
-            Debug.Log("its easy");
-        }
-        if (_mediumAI == true)
-        {
-            _aiSpeed = 15;
-            _forwardDirection = Vector2.left;
-            Debug.Log("its med");
-        }
-        if (_hardAI == true)
-        {
-            _aiSpeed = 20;
-            _forwardDirection = Vector2.left;
-            Debug.Log("its hard");
-        }
-
+        _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        AISelected();
         PlayerOne();
         PlayerTwo();
         PlayerAI();
@@ -122,5 +106,23 @@ public class PlayerMovement : MonoBehaviour
     {
         float _dotP = Vector2.Dot(_ball._rb.velocity, _forwardDirection);
         return _dotP < 0f;
+    }
+    void AISelected()
+    {
+        if (_easyAI == true)
+        {
+            _aiSpeed = 10;
+            _forwardDirection = Vector2.left;
+        }
+        if (_mediumAI == true)
+        {
+            _aiSpeed = 15;
+            _forwardDirection = Vector2.left;
+        }
+        if (_hardAI == true)
+        {
+            _aiSpeed = 20;
+            _forwardDirection = Vector2.left;
+        }
     }
 }
